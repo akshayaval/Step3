@@ -1,23 +1,23 @@
-import java.util.*;
-
-class qs1 {
-    static void countVowelsAndConsonants(String text) {
-        int vowels = 0;
-        int consonants = 0;
-        for (int i = 0; i < text.length(); i++) {
-            char ch = Character.toLowerCase(text.charAt(i));
-
-            if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') {
-                vowels++;
-            } else if (ch != ' ') {
-                consonants++;
-            }
+public class qs1
+{
+    static void checkPinLength(String pin)
+    {
+        if(pin.length() == 4)
+        {
+            System.out.println("PIN length OK");
         }
-        System.out.println("Vowels: " + vowels + " | Consonants: " + consonants);
+        else
+        {
+            System.out.println("Invalid PIN");
+            System.out.println("PIN must be exactly 4 digits");
+        }
     }
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String text = sc.nextLine();
-        countVowelsAndConsonants(text);
+
+    public static void main(String[] args)
+    {
+        String pin = "4820";
+
+        System.out.println("Checking PIN");
+        checkPinLength(pin);
     }
 }
