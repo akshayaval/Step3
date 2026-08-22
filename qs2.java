@@ -1,24 +1,36 @@
-import java.util.*;
+public class qs2
+{
+    static String reverseEachWord(String sentence)
+    {
+        String[] words = sentence.split(" ");
+        String result = "";
 
-class qs2 {
-    static void parseStudentRecord(String csvLine) {
-        String[] fields = csvLine.split(",");
+        for(int i = 0; i < words.length; i++)
+        {
+            StringBuilder word = new StringBuilder(words[i]);
+            word.reverse();
 
-        if (fields.length != 3) {
-            System.out.println("Invalid Record");
-            return;
+            result = result + word;
+
+            if(i < words.length - 1)
+            {
+                result = result + " ";
+            }
         }
 
-        System.out.println("Name: " + fields[0]
-                + " | Roll No: " + fields[1]
-                + " | Dept: " + fields[2]);
+        return result;
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public static void main(String[] args)
+    {
+        String sentence = "hello club";
 
-        String csvLine = sc.nextLine();
+        System.out.println("Original Sentence");
+        System.out.println(sentence);
 
-        parseStudentRecord(csvLine);
+        String answer = reverseEachWord(sentence);
+
+        System.out.println("Reversed Sentence");
+        System.out.println(answer);
     }
 }
