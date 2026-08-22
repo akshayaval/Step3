@@ -15,7 +15,7 @@ public class qs1
 
     public static void main(String[] args)
     {
-        String pin = "4820";
+        String pin = "4820" ;
 
         System.out.println("Checking PIN");
         checkPinLength(pin);
