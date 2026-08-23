@@ -1,36 +1,28 @@
-public class qs2
-{
-    static String reverseEachWord(String sentence)
-    {
-        String[] words = sentence.split(" ");
-        String result = "";
+public class qs2 {
+    static void checkTypingAccuracy(String original, String typed) {
+        int matched = 0;
+        int firstMismatch = -1;
 
-        for(int i = 0; i < words.length; i++)
-        {
-            StringBuilder word = new StringBuilder(words[i]);
-            word.reverse();
-
-            result = result + word;
-
-            if(i < words.length - 1)
-            {
-                result = result + " ";
+        for (int i = 0; i < original.length(); i++) {
+            if (original.charAt(i) == typed.charAt(i)) {
+                matched++;
+            } else if (firstMismatch == -1) {
+                firstMismatch = i + 1;
             }
         }
 
-        return result;
+        double accuracy = (matched * 100.0) / original.length();
+
+        System.out.printf("Matched: %d/%d\n", matched, original.length());
+        System.out.printf("Accuracy: %.2f%%\n", accuracy);
+
+        if (firstMismatch == -1)
+            System.out.println("No Mismatches");
+        else
+            System.out.println("First Mismatch at position " + firstMismatch);
     }
 
-    public static void main(String[] args)
-    {
-        String sentence = "hello club";
-
-        System.out.println("Original Sentence");
-        System.out.println(sentence);
-
-        String answer = reverseEachWord(sentence);
-
-        System.out.println("Reversed Sentence");
-        System.out.println(answer);
+    public static void main(String[] args) {
+        checkTypingAccuracy("hello world", "hello worlt");
     }
 }
