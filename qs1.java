@@ -1,23 +1,30 @@
-public class qs1
-{
-    static void checkPinLength(String pin)
-    {
-        if(pin.length() == 4)
-        {
-            System.out.println("PIN length OK");
+import java.util.*;
+
+public class qs1 {
+
+    public static int[] productExceptSelf(int[] nums) {
+        int n = nums.length;
+        int[] answer = new int[n];
+
+        // Product of elements to the left
+        answer[0] = 1;
+        for (int i = 1; i < n; i++) {
+            answer[i] = answer[i - 1] * nums[i - 1];
         }
-        else
-        {
-            System.out.println("Invalid PIN");
-            System.out.println("PIN must be exactly 4 digits");
+
+        // Product of elements to the right
+        int rightProduct = 1;
+        for (int i = n - 1; i >= 0; i--) {
+            answer[i] = answer[i] * rightProduct;
+            rightProduct *= nums[i];
         }
+
+        return answer;
     }
 
-    public static void main(String[] args)
-    {
-        String pin = "4820";
+    public static void main(String[] args) {
+        int[] nums = {1, 2, 3, 4};
 
-        System.out.println("Checking PIN");
-        checkPinLength(pin);
+        System.out.println(Arrays.toString(productExceptSelf(nums)));
     }
 }
