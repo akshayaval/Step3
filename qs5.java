@@ -1,58 +1,81 @@
-import java.util.*;
+import java.util.Arrays;
 
-class qs5 {
+class Candidate implements Comparable<Candidate> {
 
-    static String normalizeReference(String raw) {
-        raw = raw.trim();
-        if (raw.length() < 3) {
-            return raw;
-        }
-        String bankCode = raw.substring(0, 3).toUpperCase();
-        String rest = raw.substring(3);
-        return bankCode + rest;
+    String name;
+    double cgpa;
+    int codingScore;
+
+    Candidate(String name, double cgpa, int codingScore) {
+        this.name = name;
+        this.cgpa = cgpa;
+        this.codingScore = codingScore;
     }
 
-    static String validateAndFormat(String reference) {
-        if (reference.length() != 14) {
-            return "Invalid: wrong length";
-        }
-        for (int i = 0; i < 3; i++) {
-            if (!Character.isLetter(reference.charAt(i))) {
-                return "Invalid: bank code must be 3 letters";
+    static boolean isEligible(double cgpa) {
+        return cgpa >= 7.0;
+    }
+
+    static boolean isEligible(double cgpa, int codingScore) {
+        return cgpa >= 6.5 && codingScore >= 60;
+    }
+
+    double totalScore() {
+        return cgpa * 10 + codingScore;
+    }
+
+    public int compareTo(Candidate other) {
+        return Double.compare(other.totalScore(), this.totalScore());
+    }
+}
+
+public class qs5 {
+
+    static String shortlistAndRank(Candidate[] candidates) {
+
+        Candidate[] temp = new Candidate[candidates.length];
+        int count = 0;
+
+        for (Candidate c : candidates) {
+
+            if (Candidate.isEligible(c.cgpa) ||
+                Candidate.isEligible(c.cgpa, c.codingScore)) {
+
+                temp[count++] = c;
             }
+
         }
-        for (int i = 3; i < reference.length(); i++) {
-            if (!Character.isDigit(reference.charAt(i))) {
-                return "Invalid: body must contain only digits";
+
+        Candidate[] list = Arrays.copyOf(temp, count);
+
+        Arrays.sort(list);
+
+        String result = "";
+
+        for (int i = 0; i < list.length; i++) {
+
+            result += (i + 1) + ". " + list[i].name +
+                    " (" + list[i].totalScore() + ")";
+
+            if (i != list.length - 1) {
+                result += " | ";
             }
+
         }
 
-        String bankCode = reference.substring(0, 3);
-        String date = reference.substring(3, 9);
-        String sequence = reference.substring(9, 14);
-
-        String formattedDate = date.substring(0, 2)
-                + "/"
-                + date.substring(2, 4)
-                + "/"
-                + date.substring(4, 6);
-
-        StringBuilder result = new StringBuilder();
-
-        result.append("[")
-              .append(bankCode)
-              .append("] DATE: ")
-              .append(formattedDate)
-              .append(" | SEQ: ")
-              .append(sequence);
-
-        return result.toString();
+        return result;
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String raw = sc.nextLine();
-        String reference = normalizeReference(raw);
-        System.out.println(validateAndFormat(reference));
+
+        Candidate[] c = {
+                new Candidate("Aisha",8.2,40),
+                new Candidate("Rohit",6.8,65),
+                new Candidate("Meena",6.0,90),
+                new Candidate("Karan",7.5,20)
+        };
+
+        System.out.println(shortlistAndRank(c));
+
     }
 }
