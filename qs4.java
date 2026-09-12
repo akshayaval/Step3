@@ -1,29 +1,46 @@
-import java.util.*;
-
 class qs4 {
-    static String maskPhoneNumber(String phone) {
-        if (phone.length() != 10) {
-            return "Invalid phone number";
+
+    static double rowAverage(int[] row) {
+
+        int sum = 0;
+
+        for (int i = 0; i < row.length; i++) {
+            sum = sum + row[i];
         }
 
-        for (int i = 0; i < phone.length(); i++) {
-            if (!Character.isDigit(phone.charAt(i))) {
-                return "Invalid phone number";
+        return (double) sum / row.length;
+    }
+
+    static String classifyMatches(int[][] runsPerOver, int threshold) {
+
+        String result = "";
+
+        for (int i = 0; i < runsPerOver.length; i++) {
+
+            double average = rowAverage(runsPerOver[i]);
+
+            if (average >= threshold) {
+                result = result + "Match " + i + ": Power Surge";
+            } else {
+                result = result + "Match " + i + ": Normal";
+            }
+
+            if (i < runsPerOver.length - 1) {
+                result = result + " | ";
             }
         }
 
-        StringBuilder result = new StringBuilder("XXXXXX");
-        result.insert(6, "-");
-        result.append(phone.substring(6));
-
-        return result.toString();
+        return result;
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
 
-        String phone = sc.nextLine();
+        int[][] runs = {
+            {4, 6, 8},
+            {10, 12, 14},
+            {2, 3, 1}
+        };
 
-        System.out.println(maskPhoneNumber(phone));
+        System.out.println(classifyMatches(runs, 8));
     }
 }
