@@ -1,29 +1,31 @@
-import java.util.*;
-
 class qs3 {
-    static String validateFileExtension(String filename) {
-        int dot = filename.lastIndexOf('.');
 
-        if (dot == -1) {
-            return "Rejected — invalid file type";
+    static String findMinMaxSpread(int[] scores) {
+
+        int min = scores[0];
+        int max = scores[0];
+
+        for (int i = 1; i < scores.length; i++) {
+
+            if (scores[i] < min) {
+                min = scores[i];
+            }
+
+            if (scores[i] > max) {
+                max = scores[i];
+            }
         }
 
-        String extension = filename.substring(dot + 1);
+        int spread = max - min;
 
-        if (extension.equalsIgnoreCase("pdf")
-                || extension.equalsIgnoreCase("docx")
-                || extension.equalsIgnoreCase("zip")) {
-            return "Accepted";
-        }
-
-        return "Rejected — invalid file type";
+        return "Min: " + min + " | Max: " + max + " | Spread: " + spread;
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
 
-        String filename = sc.nextLine();
+        int[] scores = {45, 82, 79, 90, 33, 90, 61};
 
-        System.out.println(validateFileExtension(filename));
+        System.out.println(findMinMaxSpread(scores));
     }
 }
+
