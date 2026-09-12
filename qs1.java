@@ -1,23 +1,19 @@
-public class qs1
-{
-    static void checkPinLength(String pin)
-    {
-        if(pin.length() == 4)
-        {
-            System.out.println("PIN length OK");
-        }
-        else
-        {
-            System.out.println("Invalid PIN");
-            System.out.println("PIN must be exactly 4 digits");
-        }
+class qs1 {
+
+    static void applyMultipliers(double[] playerScores, int captainIndex, int viceCaptainIndex) {
+        playerScores[captainIndex] = playerScores[captainIndex] * 2;
+        playerScores[viceCaptainIndex] = playerScores[viceCaptainIndex] * 1.5;
     }
 
-    public static void main(String[] args)
-    {
-        String pin = "4820";
+    public static void main(String[] args) {
 
-        System.out.println("Checking PIN");
-        checkPinLength(pin);
+        double[] scores = {40, 55, 30, 62};
+
+        applyMultipliers(scores, 1, 3);
+
+        for (int i = 0; i < scores.length; i++) {
+            System.out.print(scores[i] + " ");
+        }
     }
 }
+
