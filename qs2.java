@@ -1,36 +1,24 @@
-public class qs2
-{
-    static String reverseEachWord(String sentence)
-    {
-        String[] words = sentence.split(" ");
-        String result = "";
+class qs2 {
 
-        for(int i = 0; i < words.length; i++)
-        {
-            StringBuilder word = new StringBuilder(words[i]);
-            word.reverse();
+    static String findDuplicatePick(String[] playerNames) {
 
-            result = result + word;
+        for (int i = 0; i < playerNames.length; i++) {
 
-            if(i < words.length - 1)
-            {
-                result = result + " ";
+            for (int j = i + 1; j < playerNames.length; j++) {
+
+                if (playerNames[i].equals(playerNames[j])) {
+                    return "Duplicate Found: " + playerNames[i];
+                }
             }
         }
 
-        return result;
+        return "No Duplicates Found";
     }
 
-    public static void main(String[] args)
-    {
-        String sentence = "hello club";
+    public static void main(String[] args) {
 
-        System.out.println("Original Sentence");
-        System.out.println(sentence);
+        String[] players = {"Kohli", "Bumrah", "Kohli", "Rohit"};
 
-        String answer = reverseEachWord(sentence);
-
-        System.out.println("Reversed Sentence");
-        System.out.println(answer);
+        System.out.println(findDuplicatePick(players));
     }
 }
