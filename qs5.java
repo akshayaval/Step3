@@ -1,58 +1,76 @@
-import java.util.*;
+import java.util.Arrays;
 
 class qs5 {
 
-    static String normalizeReference(String raw) {
-        raw = raw.trim();
-        if (raw.length() < 3) {
-            return raw;
+    static class Player implements Comparable<Player> {
+
+        private String name;
+        private int matchesPlayed;
+        private double battingAverage;
+        private boolean injured;
+
+        Player(String name, int matchesPlayed, double battingAverage, boolean injured) {
+            this.name = name;
+            this.matchesPlayed = matchesPlayed;
+            this.battingAverage = battingAverage;
+            this.injured = injured;
         }
-        String bankCode = raw.substring(0, 3).toUpperCase();
-        String rest = raw.substring(3);
-        return bankCode + rest;
+
+        static boolean isDraftable(int matchesPlayed) {
+            return matchesPlayed >= 10;
+        }
+
+        static boolean isDraftable(int matchesPlayed, boolean injured) {
+            return matchesPlayed >= 5 && !injured;
+        }
+
+        public int compareTo(Player other) {
+            return Double.compare(other.battingAverage, this.battingAverage);
+        }
     }
 
-    static String validateAndFormat(String reference) {
-        if (reference.length() != 14) {
-            return "Invalid: wrong length";
-        }
-        for (int i = 0; i < 3; i++) {
-            if (!Character.isLetter(reference.charAt(i))) {
-                return "Invalid: bank code must be 3 letters";
+    static String draftAndRank(Player[] players) {
+
+        Player[] draftable = new Player[players.length];
+
+        int count = 0;
+
+        for (int i = 0; i < players.length; i++) {
+
+            if (Player.isDraftable(players[i].matchesPlayed) ||
+                Player.isDraftable(players[i].matchesPlayed, players[i].injured)) {
+
+                draftable[count] = players[i];
+                count++;
             }
         }
-        for (int i = 3; i < reference.length(); i++) {
-            if (!Character.isDigit(reference.charAt(i))) {
-                return "Invalid: body must contain only digits";
+
+        Player[] finalList = Arrays.copyOf(draftable, count);
+
+        Arrays.sort(finalList);
+
+        String result = "";
+
+        for (int i = 0; i < finalList.length; i++) {
+            result = result + (i + 1) + ". " + finalList[i].name;
+
+            if (i < finalList.length - 1) {
+                result = result + " | ";
             }
         }
 
-        String bankCode = reference.substring(0, 3);
-        String date = reference.substring(3, 9);
-        String sequence = reference.substring(9, 14);
-
-        String formattedDate = date.substring(0, 2)
-                + "/"
-                + date.substring(2, 4)
-                + "/"
-                + date.substring(4, 6);
-
-        StringBuilder result = new StringBuilder();
-
-        result.append("[")
-              .append(bankCode)
-              .append("] DATE: ")
-              .append(formattedDate)
-              .append(" | SEQ: ")
-              .append(sequence);
-
-        return result.toString();
+        return result;
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String raw = sc.nextLine();
-        String reference = normalizeReference(raw);
-        System.out.println(validateAndFormat(reference));
+
+        Player[] players = {
+            new Player("Virat", 15, 48.0, false),
+            new Player("Rahul", 7, 55.0, false),
+            new Player("Sameer", 3, 60.0, false),
+            new Player("Dev", 12, 20.0, true)
+        };
+
+        System.out.println(draftAndRank(players));
     }
 }
