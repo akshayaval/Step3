@@ -1,29 +1,31 @@
-import java.util.*;
-
 class qs3 {
-    static String validateFileExtension(String filename) {
-        int dot = filename.lastIndexOf('.');
+    static int firstGreaterEqual(int[] scores, int target) {
+        int low = 0, high = scores.length;
 
-        if (dot == -1) {
-            return "Rejected — invalid file type";
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+
+            if (scores[mid] < target) {
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
         }
 
-        String extension = filename.substring(dot + 1);
+        return low;
+    }
 
-        if (extension.equalsIgnoreCase("pdf")
-                || extension.equalsIgnoreCase("docx")
-                || extension.equalsIgnoreCase("zip")) {
-            return "Accepted";
-        }
+    static int countInBand(int[] scores, int low, int high) {
+        int start = firstGreaterEqual(scores, low);
+        int end = firstGreaterEqual(scores, high + 1);
 
-        return "Rejected — invalid file type";
+        return end - start;
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        int[] scores = {35, 42, 42, 50, 58, 58, 58, 63, 71, 88};
 
-        String filename = sc.nextLine();
-
-        System.out.println(validateFileExtension(filename));
+        System.out.println(countInBand(scores, 42, 58));
+        System.out.println(countInBand(scores, 90, 100));
     }
 }

@@ -1,23 +1,26 @@
-public class qs1
-{
-    static void checkPinLength(String pin)
-    {
-        if(pin.length() == 4)
-        {
-            System.out.println("PIN length OK");
+class qs1 {
+    static void attendanceSummary(int[] days) {
+        int present = 0, streak = 0, longest = 0;
+
+        for (int i = 0; i < days.length; i++) {
+            if (days[i] == 1) {
+                present++;
+                streak++;
+
+                if (streak > longest) {
+                    longest = streak;
+                }
+            } else {
+                streak = 0;
+            }
         }
-        else
-        {
-            System.out.println("Invalid PIN");
-            System.out.println("PIN must be exactly 4 digits");
-        }
+
+        System.out.println("Present: " + present +
+                           ", Longest streak: " + longest);
     }
 
-    public static void main(String[] args)
-    {
-        String pin = "4820";
-
-        System.out.println("Checking PIN");
-        checkPinLength(pin);
+    public static void main(String[] args) {
+        int[] days = {1, 1, 0, 1, 1, 1, 0, 1};
+        attendanceSummary(days);
     }
 }

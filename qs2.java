@@ -1,36 +1,30 @@
-public class qs2
-{
-    static String reverseEachWord(String sentence)
-    {
-        String[] words = sentence.split(" ");
-        String result = "";
+class qs2 {
+    static String[] rotateRoster(String[] names, int k) {
+        int n = names.length;
+        k = k % n;
 
-        for(int i = 0; i < words.length; i++)
-        {
-            StringBuilder word = new StringBuilder(words[i]);
-            word.reverse();
+        String[] result = new String[n];
 
-            result = result + word;
-
-            if(i < words.length - 1)
-            {
-                result = result + " ";
-            }
+        for (int i = 0; i < n; i++) {
+            result[(i + k) % n] = names[i];
         }
 
         return result;
     }
 
-    public static void main(String[] args)
-    {
-        String sentence = "hello club";
+    public static void main(String[] args) {
+        String[] names = {"A", "B", "C", "D", "E"};
+        int k = 2;
 
-        System.out.println("Original Sentence");
-        System.out.println(sentence);
+        String[] result = rotateRoster(names, k);
 
-        String answer = reverseEachWord(sentence);
-
-        System.out.println("Reversed Sentence");
-        System.out.println(answer);
+        System.out.print("[");
+        for (int i = 0; i < result.length; i++) {
+            System.out.print(result[i]);
+            if (i < result.length - 1) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println("]");
     }
 }

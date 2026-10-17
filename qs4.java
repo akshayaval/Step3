@@ -1,29 +1,24 @@
-import java.util.*;
-
 class qs4 {
-    static String maskPhoneNumber(String phone) {
-        if (phone.length() != 10) {
-            return "Invalid phone number";
-        }
+    static int secondHighest(int[] scores) {
+        int highest = -1, second = -1;
 
-        for (int i = 0; i < phone.length(); i++) {
-            if (!Character.isDigit(phone.charAt(i))) {
-                return "Invalid phone number";
+        for (int i = 0; i < scores.length; i++) {
+            if (scores[i] > highest) {
+                second = highest;
+                highest = scores[i];
+            } else if (scores[i] < highest && scores[i] > second) {
+                second = scores[i];
             }
         }
 
-        StringBuilder result = new StringBuilder("XXXXXX");
-        result.insert(6, "-");
-        result.append(phone.substring(6));
-
-        return result.toString();
+        return second;
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        int[] scores = {45, 78, 92, 78, 60};
+        System.out.println(secondHighest(scores));
 
-        String phone = sc.nextLine();
-
-        System.out.println(maskPhoneNumber(phone));
+        int[] scores2 = {50, 50, 50};
+        System.out.println(secondHighest(scores2));
     }
 }
