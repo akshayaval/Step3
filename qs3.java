@@ -1,29 +1,22 @@
-import java.util.*;
+import java.util.Scanner;
 
 class qs3 {
-    static String validateFileExtension(String filename) {
-        int dot = filename.lastIndexOf('.');
-
-        if (dot == -1) {
-            return "Rejected — invalid file type";
-        }
-
-        String extension = filename.substring(dot + 1);
-
-        if (extension.equalsIgnoreCase("pdf")
-                || extension.equalsIgnoreCase("docx")
-                || extension.equalsIgnoreCase("zip")) {
-            return "Accepted";
-        }
-
-        return "Rejected — invalid file type";
-    }
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int even = 0, odd = 0;
 
-        String filename = sc.nextLine();
+        for (int i = 0; i < n; i++) {
+            int num = sc.nextInt();
 
-        System.out.println(validateFileExtension(filename));
+            if (num % 2 == 0) {
+                even++;
+            } else {
+                odd++;
+            }
+        }
+
+        System.out.println("Even: " + even);
+        System.out.println("Odd: " + odd);
     }
 }

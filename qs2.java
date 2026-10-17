@@ -1,36 +1,19 @@
-public class qs2
-{
-    static String reverseEachWord(String sentence)
-    {
-        String[] words = sentence.split(" ");
-        String result = "";
+import java.util.Scanner;
 
-        for(int i = 0; i < words.length; i++)
-        {
-            StringBuilder word = new StringBuilder(words[i]);
-            word.reverse();
+class qs2 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
 
-            result = result + word;
+        StringBuilder sb = new StringBuilder(s);
+        String rev = sb.reverse().toString();
 
-            if(i < words.length - 1)
-            {
-                result = result + " ";
-            }
+        System.out.println(rev);
+
+        if (s.equals(rev)) {
+            System.out.println("palindrome");
+        } else {
+            System.out.println("not a palindrome");
         }
-
-        return result;
-    }
-
-    public static void main(String[] args)
-    {
-        String sentence = "hello club";
-
-        System.out.println("Original Sentence");
-        System.out.println(sentence);
-
-        String answer = reverseEachWord(sentence);
-
-        System.out.println("Reversed Sentence");
-        System.out.println(answer);
     }
 }

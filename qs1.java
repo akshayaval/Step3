@@ -1,23 +1,23 @@
-public class qs1
-{
-    static void checkPinLength(String pin)
-    {
-        if(pin.length() == 4)
-        {
-            System.out.println("PIN length OK");
-        }
-        else
-        {
-            System.out.println("Invalid PIN");
-            System.out.println("PIN must be exactly 4 digits");
-        }
-    }
+import java.util.Scanner;
 
-    public static void main(String[] args)
-    {
-        String pin = "4820";
+class qs1 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next().toLowerCase();
+        int vowels = 0, consonants = 0;
 
-        System.out.println("Checking PIN");
-        checkPinLength(pin);
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+
+            if (ch == 'a' || ch == 'e' || ch == 'i' ||
+                ch == 'o' || ch == 'u') {
+                vowels++;
+            } else {
+                consonants++;
+            }
+        }
+
+        System.out.println("Vowels: " + vowels);
+        System.out.println("Consonants: " + consonants);
     }
 }

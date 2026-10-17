@@ -1,29 +1,27 @@
-import java.util.*;
+import java.util.Scanner;
 
 class qs4 {
-    static String maskPhoneNumber(String phone) {
-        if (phone.length() != 10) {
-            return "Invalid phone number";
-        }
-
-        for (int i = 0; i < phone.length(); i++) {
-            if (!Character.isDigit(phone.charAt(i))) {
-                return "Invalid phone number";
-            }
-        }
-
-        StringBuilder result = new StringBuilder("XXXXXX");
-        result.insert(6, "-");
-        result.append(phone.substring(6));
-
-        return result.toString();
-    }
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] a = new int[n];
 
-        String phone = sc.nextLine();
+        for (int i = 0; i < n; i++) {
+            a[i] = sc.nextInt();
+        }
 
-        System.out.println(maskPhoneNumber(phone));
+        int i = 0, j = n - 1;
+
+        while (i < j) {
+            int temp = a[i];
+            a[i] = a[j];
+            a[j] = temp;
+            i++;
+            j--;
+        }
+
+        for (int k = 0; k < n; k++) {
+            System.out.print(a[k] + " ");
+        }
     }
 }
